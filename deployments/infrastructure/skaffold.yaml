@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+metadata:
+  name: Infrastructure
+requires:
+  - path: cockroachdb 
+    activeProfiles:
+      - name: development-cockroachdb
+        activatedBy:
+          - development-infra
+profiles:
+  - name: development-infra
+    activation:
+      - kubeContext: minikube
