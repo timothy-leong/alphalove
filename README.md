@@ -28,9 +28,9 @@ Furthermore, the bot can also be taught what first steps to take after "swiping 
 The main benefit of using bots in place of traditional dating agencies would be cutting the cost of human matchmaking.
 
 ## Development goals
-The first development goal is to expose an endpoint where a user can submit a strategy in JSON. The next goal is to write a UI where users can interactively craft strategies in an HTML form, just like on a conventional algorithmic bot-trading website.
+The first development goal is an endpoint where a user can submit a strategy in JSON. The next goal is to write a UI where users can interactively craft strategies in an HTML form, just like on a conventional algorithmic bot-trading website.
 
-One stretch goal could be a dashboard with sample strategies for new users to explore, so that they can adapt and reuse existing strategies for their first experience with the app.
+One stretch goal could be a dashboard with sample strategies for new users to explore, so that they can adapt and reuse existing strategies instead of creating one from scratch.
 
 ## Use case
 Users can deploy strategies to skip the step of scrolling through multiple profiles. Alphalove returns matches that pass a user's algorithmic filter.
