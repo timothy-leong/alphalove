@@ -1,5 +1,5 @@
 # Alphalove
-Like Tinder, but you program your own swiper. Written in Go.
+Electronic dating agency. Written in Go.
 
 ## Folder structure
 The semantics are taken from https://github.com/golang-standards/project-layout.
@@ -9,13 +9,19 @@ The semantics are taken from https://github.com/golang-standards/project-layout.
 ```mermaid
 
     graph LR;
-    
-    B(API Server) --> D1(SQL Database)
-    B --> D2(NoSQL Database)
+    B(API Server) --> D1(SQL Database to register users)
+    B --> D2(NoSQL Database to register strategies)
+    C(Bot server)
+    D(Scheduler)
+    B --> D
+    D --> C
+    C --> D1
+    C --> D2
 ```
-- The API server exposes HTTP endpoints
+- The API server exposes HTTP endpoints for users to register/login and add strategies
 - The SQL database stores user info
-- The NoSQL database stores algorithms set by users
+- The NoSQL database stores strategies set by users
+- The scheduler stores its own user id $\rightarrow$ strategy id map which gets updated by reports from the API server. The scheduler schedules bots to run each strategy at regular intervals.
   
 
 ## Description
@@ -25,23 +31,29 @@ The same automation can apply to dating where users can get bots to filter throu
 
 Furthermore, the bot can also be taught what first steps to take after "swiping right", e.g. send a pre-written introduction, or inform the user for personal follow-up. Strategies can also control the frequency and amount of "right-swipes".
 
-The main benefit of using bots in place of traditional dating agencies would be cutting the cost of human matchmaking.
+The main benefit of using bots in place of traditional dating agencies is avoiding the cost of human matchmaking.
 
 ## Development goals
-The first development goal is an endpoint where a user can submit a strategy in JSON. The next goal is to write a UI where users can interactively craft strategies in an HTML form, just like on a conventional algorithmic bot-trading website.
+The first development goal is an endpoint where a user can submit a strategy in JSON. The next goal is to write a UI where users can interactively craft strategies in an HTML form.
 
-One stretch goal could be a dashboard with sample strategies for new users to explore, so that they can adapt and reuse existing strategies instead of creating one from scratch.
-
-## Use case
-Users can deploy strategies to skip the step of scrolling through multiple profiles. Alphalove returns matches that pass a user's algorithmic filter.
+One stretch goal could be a catalogue of example strategies for new users to adapt or deploy straightaway.
 
 
-## Endpoints
+## Endpoints for the API server
 - `Register`: For users to sign up
 - `Auth`: For users to authenticate themselves
 - `PutAlgo`: For registering algorithms
 - `GetAlgo`: For retrieving algorithms
 - `GetMatch`: Retrieve matches
+
+## Endpoints for the scheduler
+- `AddUserID`: Put a new user id in the scheduler's schedule.
+- `RemoveUserID`: Take out a user from the scheduler's schedule.
+- `AddStrategyIDForUserID`: Associate a strategy id with a user id.
+- `RemoveStrategyIDForUserID`: Disassociate a strategy id from a user id.
+
+## Endpoints for the bot server
+- `RunStrategy`: Get a bot to run a particular strategy.
 
 ## Run this project locally
 - Install `helm` for drag-and-drop Kubernetes manifests for the DBMSes used in Alphalove. 
