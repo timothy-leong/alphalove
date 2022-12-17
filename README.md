@@ -17,12 +17,13 @@ The semantics are taken from https://github.com/golang-standards/project-layout.
     D --> C
     C --> D1
     C --> D2
+    E(etcd)
+    D-->E
 ```
-- The API server exposes HTTP endpoints for users to register/login and add strategies
+- The API server exposes HTTP endpoints for users to register/login and add strategies. 
 - The SQL database stores user info
 - The NoSQL database stores strategies set by users
-- The scheduler stores its own user id $\rightarrow$ strategy id map which gets updated by reports from the API server. The scheduler schedules bots to run each strategy at regular intervals.
-  
+- The scheduler relies on updates from the API server to update its cronjob scheduling. It uses etcd as a write-ahead-log to remember its user-to-strategy and strategy-to-schedule mappings in case it needs to restart. The scheduler schedules bots to run each strategy at regular intervals. 
 
 ## Description
 Trading bots (e.g. Coinrule.com) allow you to automate trading strategy execution. Users assemble their strategy as a sequence of rules (e.g. `FOR stock in portfolio, IF price INCREASES BY 5% IN 1H THEN SELL, ELSE ...`) and let their bot execute these rules automatically. 
@@ -40,11 +41,13 @@ One stretch goal could be a catalogue of example strategies for new users to ada
 
 
 ## Endpoints for the API server
-- `Register`: For users to sign up
-- `Auth`: For users to authenticate themselves
-- `PutAlgo`: For registering algorithms
-- `GetAlgo`: For retrieving algorithms
-- `GetMatch`: Retrieve matches
+- `Register`: For new users to sign up
+- `Auth`: For existing users to authenticate themselves
+- `DeleteUser`: For removing users
+- `PutStrategy`: For registering strategies
+- `RemoveStrategy`: For deleting strategies 
+- `GetStrategy`: For retrieving strategies
+- `GetMatchForStrategy`: Retrieve matches for a particular strategy
 
 ## Endpoints for the scheduler
 - `AddUserID`: Put a new user id in the scheduler's schedule.
@@ -53,7 +56,7 @@ One stretch goal could be a catalogue of example strategies for new users to ada
 - `RemoveStrategyIDForUserID`: Disassociate a strategy id from a user id.
 
 ## Endpoints for the bot server
-- `RunStrategy`: Get a bot to run a particular strategy.
+- `RunStrategyForUser`: Get a bot to run a particular strategy, and store the results for that user in the database.
 
 ## Run this project locally
 - Install `helm` for drag-and-drop Kubernetes manifests for the DBMSes used in Alphalove. 
