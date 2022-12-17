@@ -1,11 +1,11 @@
-apiVersion: skaffold/v2beta29
+apiVersion: skaffold/v3
 kind: Config
 metadata:
   name: Infrastructure
 requires:
-  - path: cockroachdb 
+  - path: yugabytedb 
     activeProfiles:
-      - name: development-cockroachdb
+      - name: development-yugabyte
         activatedBy:
           - development-infra
 profiles:

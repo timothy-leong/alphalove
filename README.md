@@ -21,7 +21,7 @@ The semantics are taken from https://github.com/golang-standards/project-layout.
 ## Description
 Trading bots (e.g. Coinrule.com) allow you to automate trading strategy execution. Users assemble their strategy as a sequence of rules (e.g. `IF price INCREASES BY 30% IN 1H THEN SELL, ELSE ...`) and let their bot execute these rules automatically. 
 
-The same can apply to dating where users can get bots to filter through profiles (read: quotes) for them so they don't have to "swipe left" on their own. They can also choose what first steps to take after "swiping right" - e.g., send a pre-written text, or inform the user for personal follow-up.
+The same can apply to dating where users can get bots to filter through profiles for them so they don't have to "swipe left" on their own. They can also choose what first steps to take after "swiping right" - e.g., send a pre-written text, or inform the user for personal follow-up.
 
 Using bots in place of traditional dating agencies can cut the cost of matchmaking and speed up matches.
 

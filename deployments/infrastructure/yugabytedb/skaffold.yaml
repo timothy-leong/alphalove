@@ -1,0 +1,17 @@
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: Yugabyte
+profiles:
+  - name: development-yugabyte
+    activation:
+      - kubeContext: minikube
+    deploy:
+      helm:
+        releases:
+          - name: yugabyte
+            repo: https://charts.yugabyte.com
+            remoteChart: yugabyte
+            version: 2.17.0
+            namespace: yb-demo
+            createNamespace: true
