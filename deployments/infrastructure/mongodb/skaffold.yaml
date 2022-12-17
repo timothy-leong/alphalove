@@ -1,0 +1,16 @@
+# Ref: https://github.com/mongodb/helm-charts/tree/main/charts/community-operator
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: Mongo
+profiles:
+  - name: development-mongodb
+    activation:
+      - kubeContext: minikube
+    deploy:
+      helm:
+        releases:
+          - name: mongodb
+            repo: https://mongodb.github.io/helm-charts
+            remoteChart: community-operator
+            version: 0.7.6

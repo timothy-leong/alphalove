@@ -8,6 +8,11 @@ requires:
       - name: development-yugabyte
         activatedBy:
           - development-infra
+  - path: mongodb
+    activeProfiles:
+      - name: development-mongodb
+        activatedBy:
+          - development-infra
 profiles:
   - name: development-infra
     activation:
