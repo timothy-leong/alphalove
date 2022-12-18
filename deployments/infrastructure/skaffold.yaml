@@ -13,6 +13,11 @@ requires:
       - name: development-mongodb
         activatedBy:
           - development-infra
+  - path: distributed_app_runtime
+    activeProfiles:
+      - name: development-dapr
+        activatedBy:
+          - development-infra
 profiles:
   - name: development-infra
     activation:

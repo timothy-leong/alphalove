@@ -24,6 +24,7 @@ The semantics are taken from https://github.com/golang-standards/project-layout.
 - The SQL database stores user info
 - The NoSQL database stores strategies set by users
 - The scheduler relies on updates from the API server to update its cronjob scheduling. It uses etcd as a write-ahead-log to remember its user-to-strategy and strategy-to-schedule mappings in case it needs to restart. The scheduler schedules bots to run each strategy at regular intervals. 
+- The bot server spawns runners that are initialised with strategies that then trawl the central data pool for profiles.
 
 ## Description
 Trading bots (e.g. Coinrule.com) allow you to automate trading strategy execution. Users assemble their strategy as a sequence of rules (e.g. `FOR stock in portfolio, IF price INCREASES BY 5% IN 1H THEN SELL, ELSE ...`) and let their bot execute these rules automatically. 
@@ -47,7 +48,7 @@ One stretch goal could be a catalogue of example strategies for new users to ada
 - `PutStrategy`: For registering strategies
 - `RemoveStrategy`: For deleting strategies 
 - `GetStrategy`: For retrieving strategies
-- `GetMatchForStrategy`: Retrieve matches for a particular strategy
+- `GetStrategyResults`: Retrieve results for a particular strategy
 
 ## Endpoints for the scheduler
 - `AddUserID`: Put a new user id in the scheduler's schedule.
