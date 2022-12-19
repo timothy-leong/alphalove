@@ -17,13 +17,11 @@ The semantics are taken from https://github.com/golang-standards/project-layout.
     D --> C
     C --> D1
     C --> D2
-    E(etcd)
-    D-->E
 ```
 - The API server exposes HTTP endpoints for users to register/login and add strategies. 
 - The SQL database stores user info
 - The NoSQL database stores strategies set by users
-- The scheduler relies on updates from the API server to update its cronjob scheduling. It uses etcd as a write-ahead-log to remember its user-to-strategy and strategy-to-schedule mappings in case it needs to restart. The scheduler schedules bots to run each strategy at regular intervals. 
+- The scheduler relies on updates from the API server to update its cronjob scheduling. It uses a distributed hash table like etcd as a write-ahead-log to remember its user-to-strategy and strategy-to-schedule mappings in case it needs to restart. The scheduler pings the bot server to run each strategy at regular intervals. 
 - The bot server spawns runners that are initialised with strategies that then trawl the central data pool for profiles.
 
 ## Description

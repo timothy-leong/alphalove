@@ -1,4 +1,4 @@
-// Contains all code for interacting with the SQL DBMS.
+// Contains all code for connecting to the SQL DBMS.
 package sql
 
 // Connects to the database systems, and shuts down the application 

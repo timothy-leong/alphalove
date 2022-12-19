@@ -1,4 +1,4 @@
-// Contains all code for interacting with the NoSQL DBMS.
+// Contains all code for connecting to the NoSQL DBMS.
 package nosql
 
 // Connects to the database systems, and shuts down the application 
